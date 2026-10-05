@@ -10,6 +10,7 @@ import {
 import { GithubIcon } from '../ui/Icons';
 import { SectionHeader } from '../ui/SectionHeader';
 import { projects } from '../../data/projects';
+import { personalInfo } from '../../data/personalInfo';
 
 export const Projects = () => {
 
