@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en" class="dark scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Primary Meta Tags -->
+    <title>Tanha Tasri | Software Engineering Student &amp; Aspiring Developer</title>
+    <meta name="title" content="Tanha Tasri | Software Engineering Student & Aspiring Developer" />
+    <meta name="description" content="Portfolio of Tanha Tasri, Software Engineering student at Green University of Bangladesh (CGPA 3.63/4.00). Discover projects like MentraLink, skills in React, Node.js, C++, Python, and passions for Web Development, Machine Learning, and Data Science." />
+    <meta name="keywords" content="Tanha Tasri, Software Engineer, Green University of Bangladesh, Web Development, React, Node.js, MentraLink, Machine Learning, Data Science, Portfolio" />
+    <meta name="author" content="Tanha Tasri" />
+    <meta name="theme-color" content="#0a0b14" />
+    <meta name="color-scheme" content="dark light" />
+
+    <!-- Open Graph / Facebook / LinkedIn -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://tanha-tasri.github.io/" />
+    <meta property="og:title" content="Tanha Tasri | Software Engineering Student & Aspiring Developer" />
+    <meta property="og:description" content="Software Engineering student at Green University of Bangladesh (CGPA 3.63/4.00). Explore projects, skills, education, and get in touch." />
+    <meta property="og:image" content="/favicon.svg" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:title" content="Tanha Tasri | Software Engineering Student & Aspiring Developer" />
+    <meta property="twitter:description" content="Software Engineering student at Green University of Bangladesh (CGPA 3.63/4.00). Explore projects, skills, education, and get in touch." />
+    <meta property="twitter:image" content="/favicon.svg" />
+
+    <!-- Google Fonts: Outfit (headings) & Plus Jakarta Sans (body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
+
+    <!-- Anti-FOUC script for Dark/Light Mode (Defaults to dark as required) -->
+    <script>
+      (function() {
+        try {
+          const storedTheme = localStorage.getItem('theme');
+          if (storedTheme === 'light') {
+            document.documentElement.classList.remove('dark');
+            document.documentElement.classList.add('light');
+          } else {
+            // Default to dark
+            document.documentElement.classList.add('dark');
+            document.documentElement.classList.remove('light');
+          }
+        } catch (_) {}
+      })();
+    </script>
+  </head>
+  <body class="bg-slate-50 text-slate-800 dark:bg-[#0a0b14] dark:text-slate-100 antialiased selection:bg-brand-violet/30 selection:text-brand-pink transition-colors duration-300">
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
