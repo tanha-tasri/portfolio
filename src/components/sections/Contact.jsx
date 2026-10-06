@@ -238,10 +238,10 @@ export const Contact = () => {
               </div>
               <div>
                 <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 block">
-                  Location &amp; University
+                  Location 
                 </span>
                 <span className="text-xs sm:text-sm font-semibold text-slate-900 dark:text-white">
-                  Green University of Bangladesh • Dhaka, Bangladesh
+                  Purbachal 21 number sector • Dhaka, Bangladesh
                 </span>
               </div>
             </div>
@@ -440,7 +440,7 @@ export const Contact = () => {
 
                 {/* Backend Integration Note in fine print */}
                 <p className="text-[11px] text-slate-400 italic pt-2">
-                  Tip: Easily hook up EmailJS or custom backend API inside <code>src/components/sections/Contact.jsx</code>.
+                 
                 </p>
 
               </form>

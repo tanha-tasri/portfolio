@@ -164,7 +164,7 @@ export const About = () => {
             </div>
 
             <div className="pt-6 mt-6 border-t border-slate-200/70 dark:border-white/10 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
-              <span>Department of CSE</span>
+              <span>Department of SWE</span>
               <a
                 href="#education"
                 className="text-brand-violet hover:underline font-medium inline-flex items-center gap-1"

@@ -110,7 +110,7 @@ export const Projects = () => {
                         <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                         Live on Vercel
                       </span>
-                      <span className="text-[11px] font-mono text-slate-500">v1.0 Production</span>
+                      <span className="text-[11px] font-mono text-slate-500"></span>
                     </div>
                   </div>
 
@@ -253,7 +253,7 @@ export const Projects = () => {
                   </div>
 
                   <div className="mt-6 pt-4 border-t border-slate-200/60 dark:border-white/5 flex items-center justify-between text-xs">
-                    <span className="text-slate-400 italic">Configure in src/data/projects.js</span>
+                    <span className="text-slate-400 italic"></span>
                     <a
                       href={personalInfo.github}
                       target="_blank"
@@ -278,7 +278,7 @@ export const Projects = () => {
                 <strong className="text-slate-900 dark:text-white block font-semibold">
                   Want to showcase your next software project?
                 </strong>
-                <span>Open <code>src/data/projects.js</code>, duplicate the template object, and save!</span>
+                
               </div>
             </div>
             <a

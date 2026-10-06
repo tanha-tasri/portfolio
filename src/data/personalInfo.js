@@ -16,7 +16,7 @@ export const personalInfo = {
   
   // Placeholders as requested
   resumeUrl: "#", // Placeholder: replace with actual hosted PDF (e.g. '/Tanha_Tasri_Resume.pdf' or Google Drive link)
-  profilePhoto: null, // Placeholder: replace with image path (e.g. '/assets/profile.jpg') when available
+  profilePhoto: "/profile.jpg",
 
   tagline: "Software Engineering student passionate about crafting intuitive web applications, robust backend systems, and exploring data-driven intelligence.",
   

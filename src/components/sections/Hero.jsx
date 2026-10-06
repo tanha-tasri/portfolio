@@ -208,13 +208,13 @@ export const Hero = () => {
               </div>
 
               {/* Inner Avatar Container */}
-              <div className="relative z-10 w-64 h-64 sm:w-72 sm:h-72 rounded-full overflow-hidden glass-card flex flex-col items-center justify-center p-6 text-center shadow-2xl border border-white/20">
+              <div className={`relative z-10 w-64 h-64 sm:w-72 sm:h-72 rounded-full overflow-hidden glass-card flex flex-col items-center justify-center text-center shadow-2xl border border-white/20 ${personalInfo.profilePhoto ? 'p-1.5' : 'p-6'}`}>
                 {personalInfo.profilePhoto ? (
                   <img
                     src={personalInfo.profilePhoto}
                     alt={personalInfo.name}
-                    className="w-full h-full object-cover"
-                    loading="lazy"
+                    className="w-full h-full rounded-full object-cover object-[center_22%]"
+                    loading="eager"
                   />
                 ) : (
                   <div className="flex flex-col items-center justify-center space-y-2 select-none">
