@@ -27,6 +27,8 @@ export const Contact = () => {
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState('success'); // 'success' | 'activation_pending'
+  const [submittedEmail, setSubmittedEmail] = useState('');
   const [copiedEmail, setCopiedEmail] = useState(false);
 
   // Validate form fields
@@ -83,37 +85,54 @@ export const Contact = () => {
     if (hasErrors) return;
 
     setIsSubmitting(true);
+    setErrors({});
 
     try {
-      /**
-       * BACKEND / EMAILJS INTEGRATION GUIDE:
-       * ----------------------------------------------------
-       * Option A (EmailJS):
-       * 1. npm install @emailjs/browser
-       * 2. emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', {
-       *      from_name: formData.name,
-       *      from_email: formData.email,
-       *      subject: formData.subject,
-       *      message: formData.message,
-       *    }, 'YOUR_PUBLIC_KEY');
-       * 
-       * Option B (Custom API Endpoint / Serverless):
-       * await fetch('/api/contact', {
-       *   method: 'POST',
-       *   headers: { 'Content-Type': 'application/json' },
-       *   body: JSON.stringify(formData),
-       * });
-       */
+      // Connect to FormSubmit service to route email directly to personalInfo.email
+      const endpoint = `https://formsubmit.co/ajax/${encodeURIComponent(personalInfo.email)}`;
+      const payload = {
+        name: formData.name.trim(),
+        email: formData.email.trim(),
+        _subject: formData.subject?.trim()
+          ? `[Portfolio Contact] ${formData.subject.trim()}`
+          : `[Portfolio Contact] New message from ${formData.name.trim()}`,
+        message: formData.message.trim(),
+        _template: 'table',
+        _captcha: 'false',
+      };
 
-      // Simulated network latency for UX demonstration
-      await new Promise((resolve) => setTimeout(resolve, 1200));
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
 
-      setIsSubmitted(true);
-      setFormData({ name: '', email: '', subject: '', message: '' });
-      setErrors({});
+      const result = await response.json().catch(() => null);
+
+      if (response.ok && result?.success !== 'false') {
+        setSubmitStatus('success');
+        setSubmittedEmail(formData.email.trim());
+        setIsSubmitted(true);
+        setFormData({ name: '', email: '', subject: '', message: '' });
+        setErrors({});
+      } else if (result?.message && result.message.toLowerCase().includes('activation')) {
+        // FormSubmit sends a 1-time activation email to personalInfo.email on the first ever submit
+        setSubmitStatus('activation_pending');
+        setSubmittedEmail(formData.email.trim());
+        setIsSubmitted(true);
+        setFormData({ name: '', email: '', subject: '', message: '' });
+        setErrors({});
+      } else {
+        throw new Error(result?.message || 'Could not send message via form endpoint.');
+      }
     } catch (err) {
       console.error('Contact submission error:', err);
-      setErrors({ form: 'An unexpected error occurred. Please try reaching out directly via email.' });
+      setErrors({
+        form: 'Unable to send message automatically at this time. You can reach out directly via email or use the mail app button below.',
+      });
     } finally {
       setIsSubmitting(false);
     }
@@ -262,24 +281,48 @@ export const Contact = () => {
                 </p>
               </div>
 
-              {/* Success Notification Banner */}
+              {/* Success / Activation Notification Banner */}
               <AnimatePresence>
                 {isSubmitted && (
                   <motion.div
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
-                    className="mb-6 p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-start gap-3"
+                    className={`mb-6 p-4 rounded-2xl border flex items-start gap-3 ${
+                      submitStatus === 'activation_pending'
+                        ? 'bg-amber-500/10 border-amber-500/30'
+                        : 'bg-emerald-500/10 border-emerald-500/30'
+                    }`}
                   >
-                    <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" />
-                    <div className="text-xs sm:text-sm text-emerald-800 dark:text-emerald-200">
-                      <p className="font-bold">Thank you for reaching out!</p>
-                      <p className="mt-0.5">
-                        Your message has been captured. Tanha will get back to you at your email address soon.
-                      </p>
+                    {submitStatus === 'activation_pending' ? (
+                      <AlertCircle className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
+                    ) : (
+                      <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" />
+                    )}
+                    <div className="text-xs sm:text-sm">
+                      {submitStatus === 'activation_pending' ? (
+                        <div className="text-amber-800 dark:text-amber-200 space-y-1">
+                          <p className="font-bold">Message Initiated — Form Activation Link Sent</p>
+                          <p className="text-xs leading-relaxed">
+                            FormSubmit has sent a one-time activation email to <span className="font-semibold underline">{personalInfo.email}</span>.
+                            Please open your Gmail and click <strong>"Activate Form"</strong> once. Afterward, all visitor messages will arrive directly into your inbox!
+                          </p>
+                        </div>
+                      ) : (
+                        <div className="text-emerald-800 dark:text-emerald-200 space-y-1">
+                          <p className="font-bold">Message Sent Successfully!</p>
+                          <p className="text-xs leading-relaxed">
+                            Your message has been delivered directly to <span className="font-semibold underline">{personalInfo.email}</span>. Tanha will reply to {submittedEmail ? <span className="font-medium">{submittedEmail}</span> : 'your email address'} soon.
+                          </p>
+                        </div>
+                      )}
                       <button
                         onClick={() => setIsSubmitted(false)}
-                        className="mt-2 text-xs font-semibold text-emerald-600 dark:text-emerald-400 underline hover:no-underline"
+                        className={`mt-2 text-xs font-semibold underline hover:no-underline cursor-pointer block ${
+                          submitStatus === 'activation_pending'
+                            ? 'text-amber-600 dark:text-amber-400'
+                            : 'text-emerald-600 dark:text-emerald-400'
+                        }`}
                       >
                         Send another message
                       </button>
@@ -288,11 +331,22 @@ export const Contact = () => {
                 )}
               </AnimatePresence>
 
-              {/* General Form Error Notice */}
+              {/* General Form Error Notice with Direct Email Client Fallback */}
               {errors.form && (
-                <div className="mb-6 p-3 rounded-xl bg-red-500/10 border border-red-500/30 text-red-600 dark:text-red-400 text-xs flex items-center gap-2">
-                  <AlertCircle className="w-4 h-4 shrink-0" />
-                  <span>{errors.form}</span>
+                <div className="mb-6 p-4 rounded-2xl bg-red-500/10 border border-red-500/30 text-red-600 dark:text-red-400 text-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                  <div className="flex items-center gap-2">
+                    <AlertCircle className="w-4 h-4 shrink-0" />
+                    <span>{errors.form}</span>
+                  </div>
+                  <a
+                    href={`mailto:${personalInfo.email}?subject=${encodeURIComponent(formData.subject || 'Portfolio Inquiry')}&body=${encodeURIComponent(
+                      `Hi Tanha,\n\nName: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
+                    )}`}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-red-500/20 hover:bg-red-500/30 rounded-lg text-xs font-semibold text-red-700 dark:text-red-200 transition-colors shrink-0"
+                  >
+                    <Mail className="w-3.5 h-3.5" />
+                    <span>Open Mail App</span>
+                  </a>
                 </div>
               )}
 
@@ -438,10 +492,11 @@ export const Contact = () => {
                   </button>
                 </div>
 
-                {/* Backend Integration Note in fine print */}
-                <p className="text-[11px] text-slate-400 italic pt-2">
-                 
-                </p>
+                {/* Trust and direct delivery note */}
+                <div className="pt-2 flex items-center gap-2 text-slate-500 dark:text-slate-400 text-[11px]">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                  <span>Messages deliver directly to {personalInfo.email}. Spam protected.</span>
+                </div>
 
               </form>
 

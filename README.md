@@ -164,28 +164,12 @@ Colors are centrally configured in `tailwind.config.js`:
 - Gradient accents: modify `brand.indigo`, `brand.violet`, `brand.pink`, `brand.cyan`.
 - In `src/index.css`, customize the `.text-gradient` utility to use any gradient you like.
 
-### 3. How to Connect the Contact Form to EmailJS
-The contact form in `src/components/sections/Contact.jsx` includes full frontend validation. To send real emails without a backend:
-1. Install EmailJS:
-   ```bash
-   npm install @emailjs/browser
-   ```
-2. In `src/components/sections/Contact.jsx`, import EmailJS and call `sendForm` or `send` inside `handleSubmit`:
-   ```javascript
-   import emailjs from '@emailjs/browser';
-
-   await emailjs.send(
-     'YOUR_SERVICE_ID',
-     'YOUR_TEMPLATE_ID',
-     {
-       from_name: formData.name,
-       from_email: formData.email,
-       subject: formData.subject,
-       message: formData.message,
-     },
-     'YOUR_PUBLIC_KEY'
-   );
-   ```
+### 3. Contact Form Delivery (Active)
+The contact form in `src/components/sections/Contact.jsx` is automatically wired to **`tanha224517@gmail.com`** using FormSubmit:
+- **No backend or credit card required**.
+- **1-Click Activation**: The very first time a message is submitted, FormSubmit sends an activation link to `tanha224517@gmail.com`. Simply click **"Activate Form"** in your Gmail inbox once.
+- **Instant Delivery**: Every subsequent message sent through your portfolio is delivered directly to your Gmail inbox, with the visitor's email set as the `Reply-To` address so you can reply to them with a single click.
+- **Spam Protection & Fallback**: Includes spam filters and a 1-click "Open Mail App" fallback if any visitor experiences a network issue.
 
 ### 4. How to Update Your Resume & Profile Photo
 - **Resume**: Place your PDF file in `/public/resume.pdf` and update `resumeUrl: "/resume.pdf"` in `src/data/personalInfo.js`.
