@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Mail, 
-  Send, 
-  CheckCircle2, 
-  AlertCircle, 
-  Copy, 
-  Check, 
-  MapPin, 
+import {
+  Mail,
+  Send,
+  CheckCircle2,
+  AlertCircle,
+  Copy,
+  Check,
+  MapPin,
   ArrowUpRight
 } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from '../ui/Icons';
@@ -147,7 +147,7 @@ export const Contact = () => {
   return (
     <section id="contact" className="py-20 md:py-28 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Section Header */}
         <SectionHeader
           badge="Let's Connect"
@@ -157,10 +157,10 @@ export const Contact = () => {
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-          
+
           {/* Left Column: Direct Contact Details & Info Cards (5 cols) */}
           <div className="lg:col-span-5 space-y-6">
-            
+
             {/* Introductory Card */}
             <div className="glass-card rounded-3xl p-6 sm:p-8 border border-slate-200/80 dark:border-white/10 space-y-4">
               <h3 className="font-heading font-extrabold text-xl text-slate-900 dark:text-white">
@@ -257,7 +257,7 @@ export const Contact = () => {
               </div>
               <div>
                 <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 block">
-                  Location 
+                  Location
                 </span>
                 <span className="text-xs sm:text-sm font-semibold text-slate-900 dark:text-white">
                   Purbachal 21 number sector • Dhaka, Bangladesh
@@ -270,7 +270,7 @@ export const Contact = () => {
           {/* Right Column: Validated Interactive Contact Form (7 cols) */}
           <div className="lg:col-span-7">
             <div className="glass-card rounded-3xl p-6 sm:p-8 md:p-10 border border-brand-violet/25 shadow-xl relative overflow-hidden">
-              
+
               {/* Form Title */}
               <div className="mb-6">
                 <h3 className="font-heading font-extrabold text-2xl text-slate-900 dark:text-white">
@@ -288,11 +288,10 @@ export const Contact = () => {
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
-                    className={`mb-6 p-4 rounded-2xl border flex items-start gap-3 ${
-                      submitStatus === 'activation_pending'
+                    className={`mb-6 p-4 rounded-2xl border flex items-start gap-3 ${submitStatus === 'activation_pending'
                         ? 'bg-amber-500/10 border-amber-500/30'
                         : 'bg-emerald-500/10 border-emerald-500/30'
-                    }`}
+                      }`}
                   >
                     {submitStatus === 'activation_pending' ? (
                       <AlertCircle className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
@@ -318,11 +317,10 @@ export const Contact = () => {
                       )}
                       <button
                         onClick={() => setIsSubmitted(false)}
-                        className={`mt-2 text-xs font-semibold underline hover:no-underline cursor-pointer block ${
-                          submitStatus === 'activation_pending'
+                        className={`mt-2 text-xs font-semibold underline hover:no-underline cursor-pointer block ${submitStatus === 'activation_pending'
                             ? 'text-amber-600 dark:text-amber-400'
                             : 'text-emerald-600 dark:text-emerald-400'
-                        }`}
+                          }`}
                       >
                         Send another message
                       </button>
@@ -352,13 +350,13 @@ export const Contact = () => {
 
               {/* Form Elements */}
               <form onSubmit={handleSubmit} noValidate className="space-y-4">
-                
+
                 {/* Name & Email Row */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {/* Name Field */}
                   <div>
-                    <label 
-                      htmlFor="contact-name" 
+                    <label
+                      htmlFor="contact-name"
                       className="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5"
                     >
                       Your Name <span className="text-brand-pink">*</span>
@@ -373,11 +371,10 @@ export const Contact = () => {
                       aria-invalid={Boolean(errors.name)}
                       aria-describedby={errors.name ? 'name-error' : undefined}
                       placeholder="e.g. Alex Rahman"
-                      className={`w-full px-4 py-3 rounded-xl text-sm bg-white/60 dark:bg-white/5 border transition-all focus:outline-none focus:ring-2 ${
-                        errors.name
+                      className={`w-full px-4 py-3 rounded-xl text-sm bg-white/60 dark:bg-white/5 border transition-all focus:outline-none focus:ring-2 ${errors.name
                           ? 'border-red-500/80 focus:ring-red-500/30 bg-red-500/5'
                           : 'border-slate-300 dark:border-white/10 focus:border-brand-violet focus:ring-brand-violet/20'
-                      } text-slate-900 dark:text-white placeholder:text-slate-400`}
+                        } text-slate-900 dark:text-white placeholder:text-slate-400`}
                     />
                     {errors.name && (
                       <p id="name-error" className="mt-1 text-xs text-red-500 flex items-center gap-1">
@@ -389,8 +386,8 @@ export const Contact = () => {
 
                   {/* Email Field */}
                   <div>
-                    <label 
-                      htmlFor="contact-email" 
+                    <label
+                      htmlFor="contact-email"
                       className="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5"
                     >
                       Your Email <span className="text-brand-pink">*</span>
@@ -405,11 +402,10 @@ export const Contact = () => {
                       aria-invalid={Boolean(errors.email)}
                       aria-describedby={errors.email ? 'email-error' : undefined}
                       placeholder="alex@example.com"
-                      className={`w-full px-4 py-3 rounded-xl text-sm bg-white/60 dark:bg-white/5 border transition-all focus:outline-none focus:ring-2 ${
-                        errors.email
+                      className={`w-full px-4 py-3 rounded-xl text-sm bg-white/60 dark:bg-white/5 border transition-all focus:outline-none focus:ring-2 ${errors.email
                           ? 'border-red-500/80 focus:ring-red-500/30 bg-red-500/5'
                           : 'border-slate-300 dark:border-white/10 focus:border-brand-violet focus:ring-brand-violet/20'
-                      } text-slate-900 dark:text-white placeholder:text-slate-400`}
+                        } text-slate-900 dark:text-white placeholder:text-slate-400`}
                     />
                     {errors.email && (
                       <p id="email-error" className="mt-1 text-xs text-red-500 flex items-center gap-1">
@@ -422,8 +418,8 @@ export const Contact = () => {
 
                 {/* Subject Field */}
                 <div>
-                  <label 
-                    htmlFor="contact-subject" 
+                  <label
+                    htmlFor="contact-subject"
                     className="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5"
                   >
                     Subject (Optional)
@@ -441,8 +437,8 @@ export const Contact = () => {
 
                 {/* Message Field */}
                 <div>
-                  <label 
-                    htmlFor="contact-message" 
+                  <label
+                    htmlFor="contact-message"
                     className="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5"
                   >
                     Message <span className="text-brand-pink">*</span>
@@ -457,11 +453,10 @@ export const Contact = () => {
                     aria-invalid={Boolean(errors.message)}
                     aria-describedby={errors.message ? 'message-error' : undefined}
                     placeholder="Write your message here... (minimum 10 characters)"
-                    className={`w-full px-4 py-3 rounded-xl text-sm bg-white/60 dark:bg-white/5 border transition-all focus:outline-none focus:ring-2 resize-none ${
-                      errors.message
+                    className={`w-full px-4 py-3 rounded-xl text-sm bg-white/60 dark:bg-white/5 border transition-all focus:outline-none focus:ring-2 resize-none ${errors.message
                         ? 'border-red-500/80 focus:ring-red-500/30 bg-red-500/5'
                         : 'border-slate-300 dark:border-white/10 focus:border-brand-violet focus:ring-brand-violet/20'
-                    } text-slate-900 dark:text-white placeholder:text-slate-400`}
+                      } text-slate-900 dark:text-white placeholder:text-slate-400`}
                   />
                   {errors.message && (
                     <p id="message-error" className="mt-1 text-xs text-red-500 flex items-center gap-1">
@@ -495,7 +490,7 @@ export const Contact = () => {
                 {/* Trust and direct delivery note */}
                 <div className="pt-2 flex items-center gap-2 text-slate-500 dark:text-slate-400 text-[11px]">
                   <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
-                  <span>Messages deliver directly to {personalInfo.email}. Spam protected.</span>
+                  <span>Messages deliver directly to {personalInfo.email}.</span>
                 </div>
 
               </form>
